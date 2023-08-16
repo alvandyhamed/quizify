@@ -2,11 +2,14 @@ import { getAuthSession } from "@/lib/nextauth";
 import Link from "next/link";
 import React from "react";
 import SignInButton from "./SigningButton";
+import SignOutButton from "./SignOutButton";
+import UserAccountNav from "./UserAccountNav";
 
 type Props = {};
 
 const Navbar = async (props: Props) => {
   const session = await getAuthSession();
+
   console.log("HAmed", session);
   //   if (session?.user) {
   //     return <pre>{JSON.stringify(session.user, null, 2)}</pre>;
@@ -22,7 +25,11 @@ const Navbar = async (props: Props) => {
           </p>
         </Link>
         <div className="flex items center">
-          <SignInButton text="Sign In" />
+          {session && session.user ? (
+            <UserAccountNav user={session.user} />
+          ) : (
+            <SignInButton text="SingIn" />
+          )}
         </div>
       </div>
     </div>

@@ -25,14 +25,16 @@ export const autOptions: NextAuthOptions = {
 
   callbacks: {
     jwt: async ({ token }) => {
+      console.log("Hamedi", prisma.user);
       const db_user = await prisma.user.findFirst({
         where: {
           email: token?.email,
         },
       });
-      if (db_user) {
-        token.id = db_user.id;
-      }
+      console.log("Hamedi", db_user);
+      // if (db_user) {
+      //   token.id = db_user.id;
+      // }
       return token;
     },
     session: ({ session, token }) => {
